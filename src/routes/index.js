@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch } from "react-router-dom";
 
-import Login from "../modules/SignIn/pages/Login";
+import Login from "../modules/SignIn/pages/Login/Login";
 import Main from "../modules/Main/pages/Main";
 
 import Route from "./Route";
