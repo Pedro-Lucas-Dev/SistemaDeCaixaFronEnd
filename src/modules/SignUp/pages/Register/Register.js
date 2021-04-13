@@ -7,9 +7,10 @@ import {
   Grid,
   Link,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import { PersonAddRounded } from "@material-ui/icons";
-import useStyles from "../../../SignIn/pages/Login/styles";
+import useStyles from "../../../Main/pages/styles";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -43,6 +44,9 @@ const Register = () => {
         <Avatar className={avatar}>
           <PersonAddRounded />
         </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign Up
+        </Typography>
         <form className={form}>
           <TextField
             name="fistname"
