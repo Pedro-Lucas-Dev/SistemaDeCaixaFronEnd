@@ -10,7 +10,7 @@ import {
   Link,
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
-import useStyles from "./styles";
+import useStyles from "../../../Main/pages/styles";
 
 const Login = ({ history }) => {
   const handleLogin = () => {
@@ -35,7 +35,7 @@ const Login = ({ history }) => {
           <AccountCircle />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign In
         </Typography>
         <form onSubmit={handleLogin} className={form} noValidate>
           <TextField
