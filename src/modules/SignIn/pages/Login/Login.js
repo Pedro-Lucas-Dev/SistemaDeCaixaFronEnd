@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Container,
@@ -11,15 +11,36 @@ import {
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import useStyles from "../../../Main/pages/styles";
+import { signIn } from "../../../../service/api";
 
 const Login = ({ history }) => {
-  const handleLogin = () => {
-    localStorage.setItem("@SuaAplicacao:JWT_TOKEN", "seutokenjwt");
+  const [dataUserLogin, setDataUserLogin] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState([]);
 
-    history.push("Main");
+  const handleLogin = () => {
+    signIn(dataUserLogin)
+      .then((response) => {
+        localStorage.setItem(
+          "@SuaAplicacao:JWT_TOKEN",
+          response.data.accessToken
+        );
+
+        history.push("Main");
+      })
+      .catch((error) => {
+        setErrors(error.response.data.errors);
+      });
   };
+
+  const refrestFormDara = (id, value) => {
+    setDataUserLogin({ ...dataUserLogin, [id]: value });
+  };
+
   const classes = useStyles();
-  const { paper, avatar, form, submit } = classes;
+  const { paper, avatar } = classes;
   const defaultPropsInput = {
     variant: "outlined",
     margin: "normal",
@@ -37,7 +58,7 @@ const Login = ({ history }) => {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <form onSubmit={handleLogin} className={form} noValidate>
+        <div>
           <TextField
             {...defaultPropsInput}
             name="email"
@@ -45,6 +66,7 @@ const Login = ({ history }) => {
             label="Email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => refrestFormDara(e.target.id, e.target.value)}
           />
           <TextField
             {...defaultPropsInput}
@@ -53,11 +75,20 @@ const Login = ({ history }) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => refrestFormDara(e.target.id, e.target.value)}
           />
+          {errors.map((error) => {
+            return (
+              <Typography key={error} color="error" variant="subtitle2">
+                {" "}
+                {error}{" "}
+              </Typography>
+            );
+          })}
           <Button
             type="submit"
             fullWidth
-            className={submit}
+            onClick={() => handleLogin()}
             color="primary"
             variant="contained"
           >
@@ -71,7 +102,7 @@ const Login = ({ history }) => {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
     </Container>
   );
