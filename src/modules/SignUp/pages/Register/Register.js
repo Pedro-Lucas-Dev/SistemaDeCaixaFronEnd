@@ -11,8 +11,11 @@ import {
 } from "@material-ui/core";
 import { PersonAddRounded } from "@material-ui/icons";
 import useStyles from "../../../Main/pages/styles";
+import { confirmRegister } from "./validations";
+import { signUp } from "../../../../service/api";
 
-const Register = () => {
+const Register = ({ history }) => {
+  const [errors, setErrors] = useState([]);
   const [userData, setUserData] = useState({
     fistName: "",
     lastName: "",
@@ -22,7 +25,7 @@ const Register = () => {
   });
 
   const classes = useStyles();
-  const { paper, form, submit, avatar } = classes;
+  const { paper, form, avatar } = classes;
   const defaultPropsInput = {
     variant: "outlined",
     margin: "normal",
@@ -31,7 +34,15 @@ const Register = () => {
   };
 
   const RegisterUserData = () => {
-    console.log(userData);
+    const hasError = confirmRegister(userData);
+    if (hasError.length) {
+      setErrors(hasError);
+      return;
+    }
+
+    signUp(userData).then(() => {
+      history.push("/");
+    });
   };
 
   const saveData = (id, value) => {
@@ -47,7 +58,7 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
-        <form className={form}>
+        <div className={form}>
           <TextField
             name="fistname"
             id="fistName"
@@ -95,11 +106,17 @@ const Register = () => {
             onChange={(e) => saveData(e.target.id, e.target.value)}
             value={userData.confirmpassaword}
           />
+          {errors.map((erro) => {
+            return (
+              <Typography color="error" variant="subtitle2" key={erro.field}>
+                {erro.message}
+              </Typography>
+            );
+          })}
           <Button
             fullWidth
             color="primary"
             variant="contained"
-            className={submit}
             onClick={() => RegisterUserData()}
           >
             {" "}
@@ -112,7 +129,7 @@ const Register = () => {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
     </Container>
   );
