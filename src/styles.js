@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core";
-
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonIcon: {
     marginRight: theme.spacing(2),
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
   },
 }));
 
