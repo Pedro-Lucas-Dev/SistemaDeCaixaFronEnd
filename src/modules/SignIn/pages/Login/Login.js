@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
-import useStyles from "../../../Main/pages/styles";
+import useStyles from "../../../../styles";
 import { signIn } from "../../../../service/api";
 
 const Login = ({ history }) => {

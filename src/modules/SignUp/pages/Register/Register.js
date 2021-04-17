@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { PersonAddRounded } from "@material-ui/icons";
-import useStyles from "../../../Main/pages/styles";
+import useStyles from "../../../../styles";
 import { confirmRegister } from "./validations";
 import { signUp } from "../../../../service/api";
 import Alert from "@material-ui/lab/Alert";

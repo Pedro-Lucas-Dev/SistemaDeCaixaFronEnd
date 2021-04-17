@@ -18,6 +18,16 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  menu: {
+    flexGrow: 1,
+    marginBottom: 70,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  buttonIcon: {
+    marginRight: theme.spacing(2),
+  },
 }));
 
 export default useStyles;
