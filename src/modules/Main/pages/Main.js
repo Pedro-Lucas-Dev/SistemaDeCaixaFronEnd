@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Layout } from "../../../components/layout/Layout";
 import { loggedUser } from "../../../service/api";
 
 const Main = ({ history }) => {
@@ -9,19 +10,12 @@ const Main = ({ history }) => {
     });
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("@SuaAplicacao:JWT_TOKEN");
-    history.push("/");
-  };
-
   return (
-    <div>
-      <h3>Bem vindo {user.name}</h3>
-      <button type="button" onClick={handleLogout}>
-        Sair
-      </button>
-    </div>
+    <Layout history={history} titlePage={`Bem vindo ${user.name}`}>
+      <div>
+        <p>teste</p>
+      </div>
+    </Layout>
   );
 };
-
 export default Main;
