@@ -1,6 +1,7 @@
 import React from "react";
-import { Menu } from "./Menu";
-import { Box } from "@material-ui/core";
+
+import { Box, Container } from "@material-ui/core";
+import { Menu } from "../Menu";
 
 export const Layout = ({ children, history, titlePage }) => {
   const handleLogout = () => {
@@ -10,7 +11,9 @@ export const Layout = ({ children, history, titlePage }) => {
   return (
     <div>
       <Menu titlePage={titlePage} handleLogout={handleLogout} />
-      <Box mt={8}> {children} </Box>
+      <Container>
+        <Box mt={8}> {children} </Box>
+      </Container>
     </div>
   );
 };
