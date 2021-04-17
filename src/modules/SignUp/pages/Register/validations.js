@@ -6,9 +6,9 @@ function validateEmail(email) {
 export const confirmRegister = (userData) => {
   const errors = [];
 
-  if (!userData.fistName) {
+  if (!userData.firstName) {
     errors.push({
-      field: "fistName",
+      field: "firstName",
       message: "O campo Nome é obrigatório",
     });
   }

@@ -8,21 +8,26 @@ import {
   Link,
   TextField,
   Typography,
+  CircularProgress,
 } from "@material-ui/core";
 import { PersonAddRounded } from "@material-ui/icons";
 import useStyles from "../../../Main/pages/styles";
 import { confirmRegister } from "./validations";
 import { signUp } from "../../../../service/api";
+import Alert from "@material-ui/lab/Alert";
 
 const Register = ({ history }) => {
-  const [errors, setErrors] = useState([]);
-  const [userData, setUserData] = useState({
-    fistName: "",
+  const FORM_DEFAULT_VALUES = {
+    firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmpassaword: "",
-  });
+  };
+  const [errors, setErrors] = useState([]);
+  const [userData, setUserData] = useState(FORM_DEFAULT_VALUES);
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const classes = useStyles();
   const { paper, form, avatar } = classes;
@@ -39,9 +44,12 @@ const Register = ({ history }) => {
       setErrors(hasError);
       return;
     }
+    setLoading(true);
 
     signUp(userData).then(() => {
-      history.push("/");
+      setLoading(false);
+      setSuccessMessage(true);
+      setUserData(FORM_DEFAULT_VALUES);
     });
   };
 
@@ -56,14 +64,30 @@ const Register = ({ history }) => {
           <PersonAddRounded />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign Up
+          Cadastro de Usuario
         </Typography>
+        {successMessage ? (
+          <Alert
+            action={
+              <Button
+                onClick={() => history.push("/")}
+                color="inherit"
+                size="small"
+              >
+                Login
+              </Button>
+            }
+          >
+            {" "}
+            Cadastrado Concluido{" "}
+          </Alert>
+        ) : null}
         <div className={form}>
           <TextField
-            name="fistname"
-            id="fistName"
+            name="firstName"
+            id="firstName"
             label="Nome"
-            autoComplete="fistname"
+            autoComplete="firstName"
             autoFocus
             {...defaultPropsInput}
             onChange={(e) => saveData(e.target.id, e.target.value)}
@@ -118,9 +142,9 @@ const Register = ({ history }) => {
             color="primary"
             variant="contained"
             onClick={() => RegisterUserData()}
+            disabled={Boolean(confirmRegister(userData).length) || loading}
           >
-            {" "}
-            Cadastrar{" "}
+            {loading ? <CircularProgress size={20} /> : null} Cadastrar{" "}
           </Button>
           <Grid container>
             <Grid item>
