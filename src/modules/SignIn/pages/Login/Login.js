@@ -8,6 +8,7 @@ import {
   Button,
   Grid,
   Link,
+  CircularProgress,
 } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import useStyles from "../../../Main/pages/styles";
@@ -19,19 +20,23 @@ const Login = ({ history }) => {
     password: "",
   });
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = () => {
+    setLoading(true);
     signIn(dataUserLogin)
       .then((response) => {
         localStorage.setItem(
           "@SuaAplicacao:JWT_TOKEN",
           response.data.accessToken
         );
-
+        localStorage.setItem("email", dataUserLogin.email);
+        setLoading(false);
         history.push("Main");
       })
       .catch((error) => {
         setErrors(error.response.data.errors);
+        setLoading(false);
       });
   };
 
@@ -56,7 +61,7 @@ const Login = ({ history }) => {
           <AccountCircle />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign In
+          Entrar
         </Typography>
         <div>
           <TextField
@@ -91,9 +96,9 @@ const Login = ({ history }) => {
             onClick={() => handleLogin()}
             color="primary"
             variant="contained"
+            disabled={loading}
           >
-            {" "}
-            Entrar{" "}
+            {loading ? <CircularProgress size={20} /> : "Entrar"}
           </Button>
           <Grid container>
             <Grid item>
