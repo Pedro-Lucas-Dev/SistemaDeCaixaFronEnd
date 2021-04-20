@@ -16,12 +16,11 @@ import {
 import {
   Menu as MenuIcon,
   ChevronLeft,
-  People,
-  Person,
+  ArrowDownward,
   Home,
 } from "@material-ui/icons";
 
-export const Menu = ({ titlePage, handleLogout }) => {
+export const Menu = ({ titlePage, handleLogout, history }) => {
   const { menu, title, buttonIcon, drawer, drawerPaper } = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -74,26 +73,19 @@ export const Menu = ({ titlePage, handleLogout }) => {
         </div>
         <Divider />
         <List>
-          <ListItem>
+          <ListItem button onClick={() => history.push("/main")}>
             <ListItemIcon>
               {" "}
               <Home />{" "}
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </ListItem>
-          <ListItem>
+          <ListItem button onClick={() => history.push("/register-category")}>
             <ListItemIcon>
               {" "}
-              <Person />{" "}
+              <ArrowDownward />{" "}
             </ListItemIcon>
-            <ListItemText>Usuario</ListItemText>
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              {" "}
-              <People />{" "}
-            </ListItemIcon>
-            <ListItemText>Listar Usuarios</ListItemText>
+            <ListItemText>Nova Categoria</ListItemText>
           </ListItem>
         </List>
       </Drawer>
