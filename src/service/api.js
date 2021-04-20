@@ -31,4 +31,11 @@ const loggedUser = () => {
   return requestAuthenticated.get(`${BASE_URL}/me`);
 };
 
-export { signUp, signIn, loggedUser };
+const newCategoryService = (nameOfCategory) => {
+  const dataCategory = {
+    name: nameOfCategory,
+  };
+  return requestAuthenticated.post(`${BASE_URL}/category`, dataCategory);
+};
+
+export { signUp, signIn, loggedUser, newCategoryService };
