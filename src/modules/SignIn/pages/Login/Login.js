@@ -102,7 +102,7 @@ const Login = ({ history }) => {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="/SignUp" variant="body2">
+              <Link href="/sign-up" variant="body2">
                 {"Ainda não tem uma conta? clique aqui."}
               </Link>
             </Grid>

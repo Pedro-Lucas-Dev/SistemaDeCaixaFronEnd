@@ -8,9 +8,14 @@ export const Layout = ({ children, history, titlePage }) => {
     localStorage.removeItem("@SuaAplicacao:JWT_TOKEN");
     history.push("/");
   };
+
   return (
     <div>
-      <Menu titlePage={titlePage} handleLogout={handleLogout} />
+      <Menu
+        titlePage={titlePage}
+        handleLogout={handleLogout}
+        history={history}
+      />
       <Container>
         <Box mt={8}> {children} </Box>
       </Container>
