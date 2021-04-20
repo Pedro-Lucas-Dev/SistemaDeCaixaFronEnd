@@ -20,6 +20,11 @@ import {
   Home,
 } from "@material-ui/icons";
 
+// TODO Implementar Dropdown
+// Implementar DropDown Categorias
+// Sub Item Listar
+// Sub Item Cadastrar
+
 export const Menu = ({ titlePage, handleLogout, history }) => {
   const { menu, title, buttonIcon, drawer, drawerPaper } = useStyles();
   const [open, setOpen] = useState(false);
@@ -86,6 +91,9 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
               <ArrowDownward />{" "}
             </ListItemIcon>
             <ListItemText>Nova Categoria</ListItemText>
+          </ListItem>
+          <ListItem button onClick={() => history.push("/categories")}>
+            <ListItemText>Listar categorias</ListItemText>
           </ListItem>
         </List>
       </Drawer>

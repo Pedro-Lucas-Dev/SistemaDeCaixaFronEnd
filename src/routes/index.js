@@ -7,6 +7,7 @@ import Register from "../modules/SignUp/pages/Register/Register";
 
 import Route from "./Route";
 import { RegisterCategory } from "../modules/Category/pages/RegisterCategory";
+import { ListCategory } from "../modules/Category/pages/ListCategory";
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
         component={RegisterCategory}
         isPrivate
       />
+      <Route path="/categories" exact component={ListCategory} isPrivate />
     </Switch>
   );
 };

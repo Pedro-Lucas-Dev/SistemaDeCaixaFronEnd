@@ -38,4 +38,8 @@ const newCategoryService = (nameOfCategory) => {
   return requestAuthenticated.post(`${BASE_URL}/category`, dataCategory);
 };
 
-export { signUp, signIn, loggedUser, newCategoryService };
+const categories = () => {
+  return requestAuthenticated.get(`${BASE_URL}/category`);
+};
+
+export { signUp, signIn, loggedUser, newCategoryService, categories };
