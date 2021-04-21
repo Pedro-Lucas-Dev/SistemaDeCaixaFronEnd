@@ -12,22 +12,21 @@ import {
   Divider,
   ListItemText,
   ListItemIcon,
+  Collapse,
 } from "@material-ui/core";
 import {
   Menu as MenuIcon,
   ChevronLeft,
-  ArrowDownward,
+  ExpandLess,
+  ExpandMore,
   Home,
+  Settings,
 } from "@material-ui/icons";
-
-// TODO Implementar Dropdown
-// Implementar DropDown Categorias
-// Sub Item Listar
-// Sub Item Cadastrar
 
 export const Menu = ({ titlePage, handleLogout, history }) => {
   const { menu, title, buttonIcon, drawer, drawerPaper } = useStyles();
   const [open, setOpen] = useState(false);
+  const [categoriesMenu, setCategoriesMenu] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -35,6 +34,9 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleCategoryMenu = () => {
+    setCategoriesMenu(!categoriesMenu);
   };
 
   return (
@@ -85,16 +87,30 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </ListItem>
-          <ListItem button onClick={() => history.push("/register-category")}>
+
+          <ListItem button onClick={handleCategoryMenu}>
             <ListItemIcon>
-              {" "}
-              <ArrowDownward />{" "}
+              <Settings />
             </ListItemIcon>
-            <ListItemText>Nova Categoria</ListItemText>
+            <ListItemText>Categorias</ListItemText>
+            <ListItemIcon>
+              {categoriesMenu ? <ExpandLess /> : <ExpandMore />}
+            </ListItemIcon>
           </ListItem>
-          <ListItem button onClick={() => history.push("/categories")}>
-            <ListItemText>Listar categorias</ListItemText>
-          </ListItem>
+          <Collapse in={categoriesMenu} timeout="auto" unmountOnExit>
+            <Divider />
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                onClick={() => history.push("/register-category")}
+              >
+                <ListItemText>Nova Categoria</ListItemText>
+              </ListItem>
+              <ListItem button onClick={() => history.push("/categories")}>
+                <ListItemText>Listar categorias</ListItemText>
+              </ListItem>
+            </List>
+          </Collapse>
         </List>
       </Drawer>
     </div>
