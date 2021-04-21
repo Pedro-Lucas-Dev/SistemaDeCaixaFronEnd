@@ -2,47 +2,86 @@ import React, { useState, useEffect } from "react";
 import { Layout } from "../../../components/Layout";
 import { categories } from "../../../service/api";
 import { Header } from "../../../components/Header";
-import { DataGrid } from "@material-ui/data-grid";
-import { Menu } from "@material-ui/icons";
+import { Menu, AddCircle, Delete, Create } from "@material-ui/icons";
+import {
+  CircularProgress,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton,
+} from "@material-ui/core";
+import { useStyles } from "./style";
+import { deleteCategoryService } from "../../../service/api";
 
 // TODO
 // Aplicat Loading
-// Configurar DataGrid
-// Criar funcao para redirecionar para tela de cadastro
-// Adicionar Icone de Trash ao lado de cada item no DataGrid
-// Ao ser pressionado o icone da lixeira deve apagar o registro
 
 export const ListCategory = ({ history }) => {
   const [categoryData, setCategoryData] = useState([]);
-  const columns = [
-    {
-      field: "name",
-      headerName: "name",
-      width: 130,
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const { actions } = useStyles();
+
   useEffect(() => {
+    refresh();
+  }, []);
+
+  const handleDeleteCategoryClick = (id) => {
+    deleteCategoryService(id).then(() => {
+      refresh();
+    });
+  };
+  const refresh = () => {
     categories().then((response) => {
       setCategoryData(response.data);
     });
-  }, []);
+  };
   return (
     <Layout history={history} titlePage={"Categoria"}>
       <Header
         title={"Lista de Categorias:"}
         description={"aqui são encontradas todas as categorias cadastradas"}
         icon={<Menu fontSize={"large"} />}
+        iconRight={<AddCircle />}
+        onPressIconRight={() => history.push("/register-category")}
       />
-      <div>
-        {categoryData.length ? (
-          <DataGrid
-            rows={categoryData}
-            columns={columns}
-            pageSize={20}
-            autoHeight
-          />
-        ) : null}
-      </div>
+
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>categorias</TableCell>
+              <TableCell align="right" className={actions}>
+                {" "}
+                Ações{" "}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {categoryData.map((data) => {
+              return (
+                <TableRow key={data.id}>
+                  <TableCell>{data.name}</TableCell>
+                  <TableCell align="right" className={actions}>
+                    <IconButton
+                      onClick={() => handleDeleteCategoryClick(data.id)}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell align="right" className={actions}>
+                    <IconButton>
+                      <Create />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Layout>
   );
 };

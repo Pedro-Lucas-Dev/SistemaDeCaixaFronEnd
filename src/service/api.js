@@ -42,4 +42,15 @@ const categories = () => {
   return requestAuthenticated.get(`${BASE_URL}/category`);
 };
 
-export { signUp, signIn, loggedUser, newCategoryService, categories };
+const deleteCategoryService = (id) => {
+  return requestAuthenticated.delete(`${BASE_URL}/category/${id}`);
+};
+
+export {
+  signUp,
+  signIn,
+  loggedUser,
+  newCategoryService,
+  categories,
+  deleteCategoryService,
+};
