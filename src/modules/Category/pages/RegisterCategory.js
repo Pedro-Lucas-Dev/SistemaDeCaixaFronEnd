@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
-import { Button, Grid, TextField } from "@material-ui/core";
+import { Button, Grid, TextField, CircularProgress } from "@material-ui/core";
 import { Apps } from "@material-ui/icons";
 import { newCategoryService } from "../../../service/api";
 
 // TODO  Tarefas adicionais
-// Aplicar Loading
 // Zerar formulario
 // Mostrar Alert para usuário sendo sucesso || Error
 export const RegisterCategory = ({ history }) => {
   const [nameOfCategory, setNameOfCategory] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const addCategory = () => {
+    setLoading(true);
     newCategoryService(nameOfCategory)
-      .then((response) => {
-        console.log("funcionou");
+      .then(() => {
+        setLoading(false);
+        console.log("deu certo");
       })
-      .catch((error) => {
-        console.log("deu error");
+      .catch(() => {
+        setLoading(false);
+
+        console.log("deu errado");
       });
   };
 
@@ -34,16 +38,23 @@ export const RegisterCategory = ({ history }) => {
           variant="outlined"
           margin="normal"
           required={true}
-          Width={50}
+          width={50}
           id="categoryName"
           label="Nome da Categoria"
           onChange={(e) => setNameOfCategory(e.target.value)}
         />
       </Grid>
-
-      <Button color="primary" variant="contained" onClick={addCategory}>
-        Cadastrar
-      </Button>
+      <Grid>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={addCategory}
+          disabled={loading || !nameOfCategory}
+        >
+          Cadastrar
+          {loading && <CircularProgress size={20} />}
+        </Button>
+      </Grid>
     </Layout>
   );
 };
