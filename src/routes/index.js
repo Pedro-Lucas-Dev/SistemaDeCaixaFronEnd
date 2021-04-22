@@ -8,6 +8,7 @@ import Register from "../modules/SignUp/pages/Register/Register";
 import Route from "./Route";
 import { RegisterCategory } from "../modules/Category/pages/RegisterCategory";
 import { ListCategory } from "../modules/Category/pages/ListCategory";
+import { EditCategory } from "../modules/Category/pages/EditCategory";
 
 const Routes = () => {
   return (
@@ -22,6 +23,12 @@ const Routes = () => {
         isPrivate
       />
       <Route path="/categories" exact component={ListCategory} isPrivate />
+      <Route
+        path="/edit-category/:id"
+        exact
+        component={EditCategory}
+        isPrivate
+      />
     </Switch>
   );
 };
