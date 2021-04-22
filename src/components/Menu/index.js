@@ -124,13 +124,13 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
           </ListItemIcon>
           <ListItemText>Produtos</ListItemText>
           <ListItemIcon>
-            {productosMenu ? <ExpandMore /> : <ExpandLess />}
+            {productosMenu ? <ExpandLess /> : <ExpandMore />}
           </ListItemIcon>
         </ListItem>
         <Collapse in={productosMenu}>
           <Divider />
           <List>
-            <ListItem>
+            <ListItem onClick={() => history.push("/add-product")}>
               <ListItemText>Adicionar Produtos</ListItemText>
             </ListItem>
             <ListItem>
