@@ -4,7 +4,6 @@ import { categories } from "../../../service/api";
 import { Header } from "../../../components/Header";
 import { Menu, AddCircle, Delete, Create } from "@material-ui/icons";
 import {
-  CircularProgress,
   TableContainer,
   Table,
   TableHead,
@@ -21,7 +20,7 @@ import { deleteCategoryService } from "../../../service/api";
 
 export const ListCategory = ({ history }) => {
   const [categoryData, setCategoryData] = useState([]);
-  const [loading, setLoading] = useState(false);
+
   const { actions } = useStyles();
 
   useEffect(() => {
@@ -32,6 +31,9 @@ export const ListCategory = ({ history }) => {
     deleteCategoryService(id).then(() => {
       refresh();
     });
+  };
+  const handleEditCategoryClick = (id) => {
+    history.push(`/edit-category/${id}`);
   };
   const refresh = () => {
     categories().then((response) => {
@@ -72,7 +74,9 @@ export const ListCategory = ({ history }) => {
                     </IconButton>
                   </TableCell>
                   <TableCell align="right" className={actions}>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => handleEditCategoryClick(data.id)}
+                    >
                       <Create />
                     </IconButton>
                   </TableCell>

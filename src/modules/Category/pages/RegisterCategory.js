@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
 import { Button, Grid, TextField, CircularProgress } from "@material-ui/core";
-import { Apps } from "@material-ui/icons";
+import { Apps, Menu } from "@material-ui/icons";
 import { newCategoryService } from "../../../service/api";
+import { showMessage } from "../../../utils/messenge";
 
 // TODO  Tarefas adicionais
 // Zerar formulario
@@ -17,12 +18,10 @@ export const RegisterCategory = ({ history }) => {
     newCategoryService(nameOfCategory)
       .then(() => {
         setLoading(false);
-        console.log("deu certo");
+        showMessage("Deu certo!", "Cadastro Realizado com sucesso");
       })
       .catch(() => {
         setLoading(false);
-
-        console.log("deu errado");
       });
   };
 
@@ -32,6 +31,8 @@ export const RegisterCategory = ({ history }) => {
         title={"Bem vindo a Tela de Cadastro"}
         description={"Essa é a nossa tela de Adicionar uma nova categoria"}
         icon={<Apps fontSize={"large"} />}
+        iconRight={<Menu fontSize={"large"} />}
+        onPressIconRight={() => history.push("/categories")}
       />
       <Grid>
         <TextField
