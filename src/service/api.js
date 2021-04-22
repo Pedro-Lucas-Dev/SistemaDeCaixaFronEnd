@@ -46,6 +46,17 @@ const deleteCategoryService = (id) => {
   return requestAuthenticated.delete(`${BASE_URL}/category/${id}`);
 };
 
+const updateCategoryService = (id, newDataCategory) => {
+  const body = {
+    name: newDataCategory,
+  };
+  return requestAuthenticated.patch(`${BASE_URL}/category/${id}`, body);
+};
+
+const getCategoryById = (id) => {
+  return requestAuthenticated.get(`${BASE_URL}/category/${id}`);
+};
+
 export {
   signUp,
   signIn,
@@ -53,4 +64,6 @@ export {
   newCategoryService,
   categories,
   deleteCategoryService,
+  updateCategoryService,
+  getCategoryById,
 };
