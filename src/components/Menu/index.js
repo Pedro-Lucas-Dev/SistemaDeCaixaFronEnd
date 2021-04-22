@@ -21,12 +21,14 @@ import {
   ExpandMore,
   Home,
   Settings,
+  Storefront,
 } from "@material-ui/icons";
 
 export const Menu = ({ titlePage, handleLogout, history }) => {
   const { menu, title, buttonIcon, drawer, drawerPaper } = useStyles();
   const [open, setOpen] = useState(false);
   const [categoriesMenu, setCategoriesMenu] = useState(false);
+  const [productosMenu, setProductosMenu] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -37,6 +39,9 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
   };
   const handleCategoryMenu = () => {
     setCategoriesMenu(!categoriesMenu);
+  };
+  const handleProductosMenu = () => {
+    setProductosMenu(!productosMenu);
   };
 
   return (
@@ -112,6 +117,27 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             </List>
           </Collapse>
         </List>
+
+        <ListItem button onClick={handleProductosMenu}>
+          <ListItemIcon>
+            <Storefront />
+          </ListItemIcon>
+          <ListItemText>Produtos</ListItemText>
+          <ListItemIcon>
+            {productosMenu ? <ExpandMore /> : <ExpandLess />}
+          </ListItemIcon>
+        </ListItem>
+        <Collapse in={productosMenu}>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemText>Adicionar Produtos</ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText>Listar Produtos</ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
       </Drawer>
     </div>
   );
