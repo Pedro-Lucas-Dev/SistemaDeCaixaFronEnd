@@ -57,6 +57,20 @@ const getCategoryById = (id) => {
   return requestAuthenticated.get(`${BASE_URL}/category/${id}`);
 };
 
+const postNewProduct = (product, selectProduct) => {
+  const body = {
+    name: product.name,
+    price: product.price,
+    category_id: selectProduct.id,
+    description: product.description,
+    image_url: product.image,
+  };
+  return requestAuthenticated.post(`${BASE_URL}/products`, body);
+};
+const getAllProducts = () => {
+  return requestAuthenticated.get(`${BASE_URL}/products`);
+};
+
 export {
   signUp,
   signIn,
@@ -66,4 +80,6 @@ export {
   deleteCategoryService,
   updateCategoryService,
   getCategoryById,
+  postNewProduct,
+  getAllProducts,
 };
