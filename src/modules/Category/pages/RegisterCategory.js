@@ -4,11 +4,8 @@ import { Layout } from "../../../components/Layout";
 import { Button, Grid, TextField, CircularProgress } from "@material-ui/core";
 import { Apps, Menu } from "@material-ui/icons";
 import { newCategoryService } from "../../../service/api";
-import { showMessage } from "../../../utils/messenge";
+import { showMessage, errorMessage } from "../../../utils/messenge";
 
-// TODO  Tarefas adicionais
-// Zerar formulario
-// Mostrar Alert para usuário sendo sucesso || Error
 export const RegisterCategory = ({ history }) => {
   const [nameOfCategory, setNameOfCategory] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,9 +16,11 @@ export const RegisterCategory = ({ history }) => {
       .then(() => {
         setLoading(false);
         showMessage("Deu certo!", "Cadastro Realizado com sucesso");
+        setNameOfCategory("");
       })
       .catch(() => {
         setLoading(false);
+        errorMessage("Deu errado!", "Cadastro Não Foi realizado");
       });
   };
 
@@ -42,6 +41,7 @@ export const RegisterCategory = ({ history }) => {
           width={50}
           id="categoryName"
           label="Nome da Categoria"
+          value={nameOfCategory}
           onChange={(e) => setNameOfCategory(e.target.value)}
         />
       </Grid>
