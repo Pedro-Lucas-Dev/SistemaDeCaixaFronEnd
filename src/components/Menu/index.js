@@ -134,7 +134,9 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
               <ListItemText>Adicionar Produtos</ListItemText>
             </ListItem>
             <ListItem>
-              <ListItemText>Listar Produtos</ListItemText>
+              <ListItemText onClick={() => history.push("/list-products")}>
+                Listar Produtos
+              </ListItemText>
             </ListItem>
           </List>
         </Collapse>
