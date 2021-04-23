@@ -15,9 +15,6 @@ import {
 import { useStyles } from "./style";
 import { deleteCategoryService } from "../../../service/api";
 
-// TODO
-// Aplicat Loading
-
 export const ListCategory = ({ history }) => {
   const [categoryData, setCategoryData] = useState([]);
 
