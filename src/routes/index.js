@@ -10,6 +10,7 @@ import { RegisterCategory } from "../modules/Category/pages/RegisterCategory";
 import { ListCategory } from "../modules/Category/pages/ListCategory";
 import { EditCategory } from "../modules/Category/pages/EditCategory";
 import { AddProducts } from "../modules/Products/pages/AddProducts";
+import { ListProduct } from "../modules/Products/pages/ListProduct";
 
 const Routes = () => {
   return (
@@ -31,6 +32,7 @@ const Routes = () => {
         isPrivate
       />
       <Route path="/add-product" exact component={AddProducts} isPrivate />
+      <Route path="/list-products" exact component={ListProduct} isPrivate />
     </Switch>
   );
 };
