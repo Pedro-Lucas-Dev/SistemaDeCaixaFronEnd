@@ -1,5 +1,6 @@
 import React from "react";
-import { Typography, Box, Grid, IconButton } from "@material-ui/core";
+import { Typography, IconButton, Grid } from "@material-ui/core";
+import useStyles from "./styles";
 
 export const Header = ({
   description,
@@ -8,9 +9,16 @@ export const Header = ({
   iconRight,
   onPressIconRight,
 }) => {
+  const { box } = useStyles();
   return (
-    <Box p={2}>
-      <Grid direction="row" container>
+    <Grid container>
+      <Grid
+        container
+        className={box}
+        direction="row"
+        alignItems="center"
+        justify="space-between"
+      >
         {icon}
         <Grid>
           <Typography variant="h4">{title}</Typography>
@@ -20,6 +28,6 @@ export const Header = ({
           <IconButton onClick={onPressIconRight}>{iconRight}</IconButton>
         ) : null}
       </Grid>
-    </Box>
+    </Grid>
   );
 };
