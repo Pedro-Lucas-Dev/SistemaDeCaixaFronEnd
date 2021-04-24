@@ -8,17 +8,29 @@ import {
 } from "@material-ui/core";
 import { Menu, AddCircle, Delete, Create } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
+import { Empty } from "../../../components/Empty";
 import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
-import { getAllProducts } from "../../../service/api";
+import { getAllProducts, deleteProductService } from "../../../service/api";
 
 export const ListProduct = ({ history }) => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
+    refresh();
+  }, []);
+
+  const handleDeleteProduct = (id) => {
+    deleteProductService(id).then(() => {
+      refresh();
+    });
+  };
+
+  const refresh = () => {
     getAllProducts().then((response) => {
       setProducts(response.data);
     });
-  }, []);
+  };
+
   return (
     <Layout history={history} titlePage={"Lista de Produtos"}>
       <Header
@@ -28,55 +40,63 @@ export const ListProduct = ({ history }) => {
         iconRight={<AddCircle fontSize={"large"} />}
         onPressIconRight={() => history.push("/add-product")}
       />
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell> Img </TableCell>
-            <TableCell> Produto </TableCell>
-            <TableCell> Preço </TableCell>
-            <TableCell> Descrição </TableCell>
-            <TableCell> Categoria </TableCell>
-            <TableCell> Ações </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {products.map((product) => {
-            return (
-              <TableRow key={product.id}>
-                <TableCell>
-                  {" "}
-                  <img
-                    src={product.image_url}
-                    height="42"
-                    width="42"
-                    alt=""
-                  />{" "}
-                </TableCell>
+      {products.length ? (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell> Img </TableCell>
+              <TableCell> Produto </TableCell>
+              <TableCell> Preço </TableCell>
+              <TableCell> Descrição </TableCell>
+              <TableCell> Categoria </TableCell>
+              <TableCell> Ações </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {products.map((product) => {
+              return (
+                <TableRow key={product.id}>
+                  <TableCell>
+                    {" "}
+                    <img
+                      src={product.image_url}
+                      height="42"
+                      width="42"
+                      alt=""
+                    />{" "}
+                  </TableCell>
 
-                <TableCell>{product.name}</TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>{product.description}</TableCell>
-                <TableCell>
-                  {" "}
-                  {product.category_id?.name
-                    ? product.category_id.name
-                    : "Não informado"}{" "}
-                </TableCell>
-                <TableCell width={50}>
-                  <IconButton>
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-                <TableCell width={50}>
-                  <IconButton>
-                    <Create />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                  <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell>{product.description}</TableCell>
+                  <TableCell>
+                    {" "}
+                    {product.category_id?.name
+                      ? product.category_id.name
+                      : "Não informado"}{" "}
+                  </TableCell>
+                  <TableCell width={50}>
+                    <IconButton onClick={() => handleDeleteProduct(product.id)}>
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                  <TableCell width={50}>
+                    <IconButton
+                      onClick={() =>
+                        history.push(`/edit-product/${product.id}`)
+                      }
+                    >
+                      <Create />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      ) : (
+        <Empty message={"Ainda Não foram Cadastrado nenhum produto"} />
+      )}
     </Layout>
   );
 };
