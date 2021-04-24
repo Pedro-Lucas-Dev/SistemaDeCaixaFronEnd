@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { useStyles } from "./style";
 import { deleteCategoryService } from "../../../service/api";
+import { Empty } from "../../../components/Empty";
 
 export const ListCategory = ({ history }) => {
   const [categoryData, setCategoryData] = useState([]);
@@ -40,49 +41,53 @@ export const ListCategory = ({ history }) => {
   return (
     <Layout history={history} titlePage={"Categoria"}>
       <Header
-        title={"Lista de Categorias:"}
+        title={"Lista de Categorias"}
         description={"aqui são encontradas todas as categorias cadastradas"}
         icon={<Menu fontSize={"large"} />}
-        iconRight={<AddCircle />}
+        iconRight={<AddCircle fontSize={"large"} />}
         onPressIconRight={() => history.push("/register-category")}
       />
 
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>categorias</TableCell>
-              <TableCell align="right" className={actions}>
-                {" "}
-                Ações{" "}
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {categoryData.map((data) => {
-              return (
-                <TableRow key={data.id}>
-                  <TableCell>{data.name}</TableCell>
-                  <TableCell align="right" className={actions}>
-                    <IconButton
-                      onClick={() => handleDeleteCategoryClick(data.id)}
-                    >
-                      <Delete />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="right" className={actions}>
-                    <IconButton
-                      onClick={() => handleEditCategoryClick(data.id)}
-                    >
-                      <Create />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {categoryData.length ? (
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>categorias</TableCell>
+                <TableCell align="right" className={actions}>
+                  {" "}
+                  Ações{" "}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {categoryData.map((data) => {
+                return (
+                  <TableRow key={data.id}>
+                    <TableCell>{data.name}</TableCell>
+                    <TableCell align="right" className={actions}>
+                      <IconButton
+                        onClick={() => handleDeleteCategoryClick(data.id)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="right" className={actions}>
+                      <IconButton
+                        onClick={() => handleEditCategoryClick(data.id)}
+                      >
+                        <Create />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Empty message={"Ainda não tem Nenhuma Categoria"} />
+      )}
     </Layout>
   );
 };
