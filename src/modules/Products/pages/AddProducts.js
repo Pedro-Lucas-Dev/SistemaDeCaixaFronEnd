@@ -55,56 +55,72 @@ export const AddProducts = ({ history }) => {
         iconRight={<Menu fontSize={"large"} />}
         onPressIconRight={() => history.push("/list-products")}
       />
-      <Grid>
+      <Grid container direction="column" justify="center" alignItems="center">
         <TextField
+          variant="outlined"
+          margin="normal"
+          required={true}
+          width={50}
           id="name"
           label="Nome do produto"
           onChange={(e) => handleDataProduct(e.target.id, e.target.value)}
         />
         <TextField
+          variant="outlined"
+          margin="normal"
+          required={true}
+          width={50}
           id="description"
           label="Descrição"
           onChange={(e) => handleDataProduct(e.target.id, e.target.value)}
         />
         <TextField
+          variant="outlined"
+          margin="normal"
+          required={true}
+          width={50}
           id="price"
           label="Preço do produto"
           onChange={(e) => handleDataProduct(e.target.id, e.target.value)}
         />
         <TextField
+          variant="outlined"
+          margin="normal"
+          required={true}
+          width={50}
           id="image"
           label="Imagem"
           onChange={(e) => handleDataProduct(e.target.id, e.target.value)}
         />
-      </Grid>
 
-      <FormControl>
-        <InputLabel>Categorias</InputLabel>
-        <Select onChange={handleSelectCategoryChange}>
-          <option selected={"DEFAULT" === selectProduct.id} value="DEFAULT">
-            Selecione uma opção
-          </option>
-          {ListCategory.map((category) => {
-            return (
-              <option
-                selected={category.id === selectProduct.id}
-                value={category.id}
-                key={category.id}
-              >
-                {category.name}
-              </option>
-            );
-          })}
-        </Select>
-      </FormControl>
-      <Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSendProductData}
-        >
-          Cadastrar
-        </Button>
+        <FormControl>
+          <InputLabel>Categorias</InputLabel>
+          <Select onChange={handleSelectCategoryChange} variant="outlined">
+            <option selected={"DEFAULT" === selectProduct.id} value="DEFAULT">
+              Selecione uma opção
+            </option>
+            {ListCategory.map((category) => {
+              return (
+                <option
+                  selected={category.id === selectProduct.id}
+                  value={category.id}
+                  key={category.id}
+                >
+                  {category.name}
+                </option>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <Grid>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSendProductData}
+          >
+            Cadastrar
+          </Button>
+        </Grid>
       </Grid>
     </Layout>
   );
