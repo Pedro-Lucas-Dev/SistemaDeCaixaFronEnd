@@ -71,6 +71,23 @@ const getAllProducts = () => {
   return requestAuthenticated.get(`${BASE_URL}/products`);
 };
 
+const deleteProductService = (id) => {
+  return requestAuthenticated.delete(`${BASE_URL}/products/${id}`);
+};
+const getProductById = (id) => {
+  return requestAuthenticated.get(`${BASE_URL}/products/${id}`);
+};
+
+const uptadeProductService = (id, product) => {
+  const body = {
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    image_url: product.image_url,
+  };
+  return requestAuthenticated.patch(`${BASE_URL}/products/${id}`, body);
+};
+
 export {
   signUp,
   signIn,
@@ -82,4 +99,7 @@ export {
   getCategoryById,
   postNewProduct,
   getAllProducts,
+  deleteProductService,
+  getProductById,
+  uptadeProductService,
 };
