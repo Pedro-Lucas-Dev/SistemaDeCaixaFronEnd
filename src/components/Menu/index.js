@@ -20,7 +20,7 @@ import {
   ExpandLess,
   ExpandMore,
   Home,
-  Settings,
+  AllInboxSharp,
   Storefront,
 } from "@material-ui/icons";
 
@@ -95,7 +95,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
 
           <ListItem button onClick={handleCategoryMenu}>
             <ListItemIcon>
-              <Settings />
+              <AllInboxSharp />
             </ListItemIcon>
             <ListItemText>Categorias</ListItemText>
             <ListItemIcon>
@@ -127,16 +127,14 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             {productosMenu ? <ExpandLess /> : <ExpandMore />}
           </ListItemIcon>
         </ListItem>
-        <Collapse in={productosMenu}>
+        <Collapse in={productosMenu} timeout="auto" unmountOnExit>
           <Divider />
-          <List>
-            <ListItem onClick={() => history.push("/add-product")}>
+          <List component="div" disablePadding>
+            <ListItem button onClick={() => history.push("/add-product")}>
               <ListItemText>Adicionar Produtos</ListItemText>
             </ListItem>
-            <ListItem>
-              <ListItemText onClick={() => history.push("/list-products")}>
-                Listar Produtos
-              </ListItemText>
+            <ListItem button onClick={() => history.push("/list-products")}>
+              <ListItemText>Listar Produtos</ListItemText>
             </ListItem>
           </List>
         </Collapse>
