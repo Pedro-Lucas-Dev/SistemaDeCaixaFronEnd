@@ -69,14 +69,14 @@ export const ListCategory = ({ history }) => {
                       <IconButton
                         onClick={() => handleDeleteCategoryClick(data.id)}
                       >
-                        <Delete />
+                        <Delete color="error" />
                       </IconButton>
                     </TableCell>
                     <TableCell align="right" className={actions}>
                       <IconButton
                         onClick={() => handleEditCategoryClick(data.id)}
                       >
-                        <Create />
+                        <Create color="primary" />
                       </IconButton>
                     </TableCell>
                   </TableRow>
