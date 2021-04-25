@@ -12,6 +12,7 @@ import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
 import { categories, postNewProduct } from "../../../service/api";
 import { showMessage } from "../../../utils/messenge";
+import { useStyles } from "./style";
 
 export const AddProducts = ({ history }) => {
   const [ListCategory, setListCategory] = useState([]);
@@ -25,6 +26,8 @@ export const AddProducts = ({ history }) => {
     price: 0,
     image: "",
   });
+
+  const { formControl } = useStyles();
 
   useEffect(() => {
     categories().then((response) => {
@@ -93,7 +96,7 @@ export const AddProducts = ({ history }) => {
           onChange={(e) => handleDataProduct(e.target.id, e.target.value)}
         />
 
-        <FormControl>
+        <FormControl variant="filled" className={formControl}>
           <InputLabel>Categorias</InputLabel>
           <Select onChange={handleSelectCategoryChange} variant="outlined">
             <option selected={"DEFAULT" === selectProduct.id} value="DEFAULT">
