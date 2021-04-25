@@ -88,6 +88,14 @@ const uptadeProductService = (id, product) => {
   return requestAuthenticated.patch(`${BASE_URL}/products/${id}`, body);
 };
 
+const changeProductStatusService = (id, status) => {
+  const body = {
+    status: status === "ACTIVE" ? "inactive".toUpperCase() : "ACTIVE",
+  };
+
+  return requestAuthenticated.patch(`${BASE_URL}/products/${id}`, body);
+};
+
 export {
   signUp,
   signIn,
@@ -102,4 +110,5 @@ export {
   deleteProductService,
   getProductById,
   uptadeProductService,
+  changeProductStatusService,
 };
