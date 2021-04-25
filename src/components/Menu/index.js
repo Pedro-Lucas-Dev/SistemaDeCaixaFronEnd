@@ -82,6 +82,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeft />
           </IconButton>
+          {localStorage.getItem("name")}
         </div>
         <Divider />
         <List>
@@ -109,7 +110,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
                 button
                 onClick={() => history.push("/register-category")}
               >
-                <ListItemText>Nova Categoria</ListItemText>
+                <ListItemText>Cadastrar Categoria</ListItemText>
               </ListItem>
               <ListItem button onClick={() => history.push("/categories")}>
                 <ListItemText>Listar categorias</ListItemText>
@@ -131,7 +132,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
           <Divider />
           <List component="div" disablePadding>
             <ListItem button onClick={() => history.push("/add-product")}>
-              <ListItemText>Adicionar Produtos</ListItemText>
+              <ListItemText>Cadastrar Produtos</ListItemText>
             </ListItem>
             <ListItem button onClick={() => history.push("/list-products")}>
               <ListItemText>Listar Produtos</ListItemText>
