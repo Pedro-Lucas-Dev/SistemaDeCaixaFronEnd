@@ -25,7 +25,7 @@ export const RegisterCategory = ({ history }) => {
   };
 
   return (
-    <Layout history={history} titlePage="Categoria">
+    <Layout history={history} titlePage="Cadastro de Categoria">
       <Header
         title={"Bem vindo a Tela de Cadastro"}
         description={"Essa é a nossa tela de Adicionar uma nova categoria"}
@@ -33,7 +33,7 @@ export const RegisterCategory = ({ history }) => {
         iconRight={<Menu fontSize={"large"} />}
         onPressIconRight={() => history.push("/categories")}
       />
-      <Grid>
+      <Grid container direction="column" justify="center" alignItems="center">
         <TextField
           variant="outlined"
           margin="normal"
@@ -45,7 +45,7 @@ export const RegisterCategory = ({ history }) => {
           onChange={(e) => setNameOfCategory(e.target.value)}
         />
       </Grid>
-      <Grid>
+      <Grid container direction="column" justify="center" alignItems="center">
         <Button
           color="primary"
           variant="contained"
