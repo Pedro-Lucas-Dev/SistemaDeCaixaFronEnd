@@ -17,7 +17,7 @@ export const Header = ({
         className={box}
         direction="row"
         alignItems="center"
-        justify="space-between"
+        justify={iconRight ? "space-between" : null}
       >
         {icon}
         <Grid>
