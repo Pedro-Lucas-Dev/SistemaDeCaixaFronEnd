@@ -1,20 +1,35 @@
 import {
+  Button,
   IconButton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  Grid,
 } from "@material-ui/core";
-import { Menu, AddCircle, Delete, Create } from "@material-ui/icons";
+import {
+  Menu,
+  AddCircle,
+  Delete,
+  Create,
+  FiberManualRecord,
+} from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { Empty } from "../../../components/Empty";
 import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
-import { getAllProducts, deleteProductService } from "../../../service/api";
+import {
+  getAllProducts,
+  deleteProductService,
+  changeProductStatusService,
+} from "../../../service/api";
+import { green } from "@material-ui/core/colors";
 
 export const ListProduct = ({ history }) => {
   const [products, setProducts] = useState([]);
+  const [productsFiltered, setProductsFiltered] = useState([]);
+
   useEffect(() => {
     refresh();
   }, []);
@@ -28,7 +43,25 @@ export const ListProduct = ({ history }) => {
   const refresh = () => {
     getAllProducts().then((response) => {
       setProducts(response.data);
+      setProductsFiltered(response.data);
     });
+  };
+
+  const handleChangedColor = (id, status) => {
+    changeProductStatusService(id, status).then(() => {
+      refresh();
+    });
+  };
+
+  const applyFilter = (status) => {
+    if (status) {
+      const productsInactive = products.filter((product) => {
+        return product.status === status;
+      });
+      setProductsFiltered(productsInactive);
+      return;
+    }
+    return setProductsFiltered(products);
   };
 
   return (
@@ -40,11 +73,39 @@ export const ListProduct = ({ history }) => {
         iconRight={<AddCircle fontSize={"large"} />}
         onPressIconRight={() => history.push("/add-product")}
       />
-      {products.length ? (
+      <Grid
+        container
+        direction="row"
+        justify="space-evenly"
+        alignItems="center"
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => applyFilter("ACTIVE")}
+        >
+          Exibir Ativos
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => applyFilter("INACTIVE")}
+        >
+          Exibir Inativos
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => applyFilter()}
+        >
+          Exibir Todos
+        </Button>
+      </Grid>
+      {productsFiltered.length ? (
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell> Img </TableCell>
+              <TableCell> imagem </TableCell>
               <TableCell> Produto </TableCell>
               <TableCell> Preço </TableCell>
               <TableCell> Descrição </TableCell>
@@ -53,7 +114,7 @@ export const ListProduct = ({ history }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => {
+            {productsFiltered.map((product) => {
               return (
                 <TableRow key={product.id}>
                   <TableCell>
@@ -77,7 +138,7 @@ export const ListProduct = ({ history }) => {
                   </TableCell>
                   <TableCell width={50}>
                     <IconButton onClick={() => handleDeleteProduct(product.id)}>
-                      <Delete />
+                      <Delete color="error" />
                     </IconButton>
                   </TableCell>
                   <TableCell width={50}>
@@ -86,7 +147,21 @@ export const ListProduct = ({ history }) => {
                         history.push(`/edit-product/${product.id}`)
                       }
                     >
-                      <Create />
+                      <Create color="primary" />
+                    </IconButton>
+                  </TableCell>
+
+                  <TableCell width={50}>
+                    <IconButton
+                      onClick={() =>
+                        handleChangedColor(product.id, product.status)
+                      }
+                    >
+                      {product.status === "active".toUpperCase() ? (
+                        <FiberManualRecord style={{ color: green[500] }} />
+                      ) : (
+                        <FiberManualRecord color="secondary" />
+                      )}
                     </IconButton>
                   </TableCell>
                 </TableRow>
