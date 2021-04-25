@@ -9,6 +9,7 @@ const Main = ({ history }) => {
   useEffect(() => {
     loggedUser().then((response) => {
       setUser(response.data);
+      localStorage.setItem("name", response.data.name);
     });
   }, []);
 
