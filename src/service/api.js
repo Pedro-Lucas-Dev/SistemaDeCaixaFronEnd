@@ -96,6 +96,11 @@ const changeProductStatusService = (id, status) => {
   return requestAuthenticated.patch(`${BASE_URL}/products/${id}`, body);
 };
 
+const getUserById = () => {
+  const userId = localStorage.getItem("id");
+  return requestAuthenticated.get(`${BASE_URL}/users/${userId}`);
+};
+
 export {
   signUp,
   signIn,
@@ -111,4 +116,5 @@ export {
   getProductById,
   uptadeProductService,
   changeProductStatusService,
+  getUserById,
 };
