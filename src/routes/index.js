@@ -12,6 +12,8 @@ import { EditCategory } from "../modules/Category/pages/EditCategory";
 import { AddProducts } from "../modules/Products/pages/AddProducts";
 import { ListProduct } from "../modules/Products/pages/ListProduct";
 import { EditProduct } from "../modules/Products/pages/EditProduct";
+import { EditUser } from "../modules/User/pages/EditUserInformations";
+import { UserData } from "../modules/User/pages/UserData";
 
 const Routes = () => {
   return (
@@ -35,6 +37,13 @@ const Routes = () => {
       <Route path="/add-product" exact component={AddProducts} isPrivate />
       <Route path="/list-products" exact component={ListProduct} isPrivate />
       <Route path="/edit-product/:id" exact component={EditProduct} isPrivate />
+      <Route
+        path="/edit-user-informations/:id"
+        exact
+        component={EditUser}
+        isPrivate
+      />
+      <Route path="/user-data" exact component={UserData} isPrivate />
     </Switch>
   );
 };
