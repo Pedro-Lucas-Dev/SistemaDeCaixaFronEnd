@@ -22,6 +22,7 @@ import {
   Home,
   AllInboxSharp,
   Storefront,
+  AccountCircle,
 } from "@material-ui/icons";
 
 export const Menu = ({ titlePage, handleLogout, history }) => {
@@ -29,6 +30,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
   const [open, setOpen] = useState(false);
   const [categoriesMenu, setCategoriesMenu] = useState(false);
   const [productosMenu, setProductosMenu] = useState(false);
+  const [userMenu, setUserMenu] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -42,6 +44,10 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
   };
   const handleProductosMenu = () => {
     setProductosMenu(!productosMenu);
+  };
+
+  const handleOpenUserMenu = () => {
+    setUserMenu(!userMenu);
   };
 
   return (
@@ -123,11 +129,14 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
           <ListItemIcon>
             <Storefront />
           </ListItemIcon>
+
           <ListItemText>Produtos</ListItemText>
+
           <ListItemIcon>
             {productosMenu ? <ExpandLess /> : <ExpandMore />}
           </ListItemIcon>
         </ListItem>
+
         <Collapse in={productosMenu} timeout="auto" unmountOnExit>
           <Divider />
           <List component="div" disablePadding>
@@ -136,6 +145,29 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             </ListItem>
             <ListItem button onClick={() => history.push("/list-products")}>
               <ListItemText>Listar Produtos</ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
+
+        <ListItem button onClick={() => handleOpenUserMenu()}>
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          <ListItemText>Usuario </ListItemText>
+          <ListItemIcon>
+            {userMenu ? <ExpandLess /> : <ExpandMore />}
+          </ListItemIcon>
+        </ListItem>
+        <Collapse in={userMenu}>
+          <List>
+            <ListItem button onClick={() => history.push("/user-data")}>
+              <ListItemText> Meus Dados </ListItemText>
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => history.push("/edit-user-informations")}
+            >
+              <ListItemText> Editar Dados </ListItemText>
             </ListItem>
           </List>
         </Collapse>
