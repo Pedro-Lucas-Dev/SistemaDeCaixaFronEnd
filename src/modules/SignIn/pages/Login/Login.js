@@ -30,9 +30,13 @@ const Login = ({ history }) => {
           "@SuaAplicacao:JWT_TOKEN",
           response.data.accessToken
         );
+        const tokenParts = response.data.accessToken.split(".");
+        const dataStringify = JSON.parse(atob(tokenParts[1]));
+
         localStorage.setItem("email", dataUserLogin.email);
         setLoading(false);
         history.push("Main");
+        localStorage.setItem("id", dataStringify.userId);
       })
       .catch((error) => {
         setErrors(error.response.data.errors);
