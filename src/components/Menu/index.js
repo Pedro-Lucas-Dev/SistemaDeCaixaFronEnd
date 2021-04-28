@@ -31,6 +31,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
   const [categoriesMenu, setCategoriesMenu] = useState(false);
   const [productosMenu, setProductosMenu] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
+  const userId = localStorage.getItem("id");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -165,7 +166,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             </ListItem>
             <ListItem
               button
-              onClick={() => history.push("/edit-user-informations")}
+              onClick={() => history.push(`/edit-user-informations/${userId}`)}
             >
               <ListItemText> Editar Dados </ListItemText>
             </ListItem>
