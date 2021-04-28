@@ -101,6 +101,16 @@ const getUserById = () => {
   return requestAuthenticated.get(`${BASE_URL}/users/${userId}`);
 };
 
+const uptadeUserDataService = (userData) => {
+  const userId = localStorage.getItem("id");
+  const body = {
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    email: userData.email,
+  };
+  return requestAuthenticated.patch(`${BASE_URL}/users/${userId}`, body);
+};
+
 export {
   signUp,
   signIn,
@@ -117,4 +127,5 @@ export {
   uptadeProductService,
   changeProductStatusService,
   getUserById,
+  uptadeUserDataService,
 };
