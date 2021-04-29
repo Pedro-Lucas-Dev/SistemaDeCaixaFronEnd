@@ -23,6 +23,7 @@ import {
   AllInboxSharp,
   Storefront,
   AccountCircle,
+  ShoppingBasket,
 } from "@material-ui/icons";
 
 export const Menu = ({ titlePage, handleLogout, history }) => {
@@ -32,6 +33,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
   const [productosMenu, setProductosMenu] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
   const userId = localStorage.getItem("id");
+  const [salesMenu, setSalesMenu] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -49,6 +51,9 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
 
   const handleOpenUserMenu = () => {
     setUserMenu(!userMenu);
+  };
+  const handleOpenSalesMenu = () => {
+    setSalesMenu(!salesMenu);
   };
 
   return (
@@ -146,6 +151,28 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             </ListItem>
             <ListItem button onClick={() => history.push("/list-products")}>
               <ListItemText>Listar Produtos</ListItemText>
+            </ListItem>
+          </List>
+        </Collapse>
+
+        <ListItem button onClick={() => handleOpenSalesMenu()}>
+          <ListItemIcon>
+            <ShoppingBasket />
+          </ListItemIcon>
+          <ListItemText> Vendas </ListItemText>
+          <ListItemIcon>
+            {salesMenu ? <ExpandLess /> : <ExpandMore />}
+          </ListItemIcon>
+        </ListItem>
+
+        <Collapse in={salesMenu}>
+          <Divider />
+          <List>
+            <ListItem button onClick={() => history.push("/sales")}>
+              <ListItemText> Fazer Compras </ListItemText>
+            </ListItem>
+            <ListItem>
+              <ListItemText> Listar Compras </ListItemText>
             </ListItem>
           </List>
         </Collapse>
