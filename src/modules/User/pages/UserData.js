@@ -35,6 +35,7 @@ export const UserData = ({ history }) => {
       <Grid container spacing={1} direction="column" alignItems="center">
         <img
           src={`https://www.gravatar.com/avatar/${md5(user.email)}?d=robohash`}
+          alt="userimage"
         />
         <Box p={4}>
           <Typography variant="h4" align="center">
