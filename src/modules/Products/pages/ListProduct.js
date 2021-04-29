@@ -1,12 +1,14 @@
 import {
   Button,
   IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Grid,
+  Card,
+  CardMedia,
+  CardHeader,
+  CardActions,
+  Typography,
+  CardContent,
+  Box,
+  Divider,
 } from "@material-ui/core";
 import {
   Menu,
@@ -25,10 +27,12 @@ import {
   changeProductStatusService,
 } from "../../../service/api";
 import { green } from "@material-ui/core/colors";
+import { useStyles } from "./style";
 
 export const ListProduct = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
+  const { root, media } = useStyles();
 
   useEffect(() => {
     refresh();
@@ -73,12 +77,7 @@ export const ListProduct = ({ history }) => {
         iconRight={<AddCircle fontSize={"large"} />}
         onPressIconRight={() => history.push("/add-product")}
       />
-      <Grid
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-      >
+      <Box mb={2}>
         <Button
           variant="contained"
           color="primary"
@@ -100,78 +99,62 @@ export const ListProduct = ({ history }) => {
         >
           Exibir Todos
         </Button>
-      </Grid>
-      {productsFiltered.length ? (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell> imagem </TableCell>
-              <TableCell> Produto </TableCell>
-              <TableCell> Preço </TableCell>
-              <TableCell> Descrição </TableCell>
-              <TableCell> Categoria </TableCell>
-              <TableCell> Ações </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {productsFiltered.map((product) => {
-              return (
-                <TableRow key={product.id}>
-                  <TableCell>
-                    {" "}
-                    <img
-                      src={product.image_url}
-                      height="42"
-                      width="42"
-                      alt=""
-                    />{" "}
-                  </TableCell>
-
-                  <TableCell>{product.name}</TableCell>
-                  <TableCell>{product.price}</TableCell>
-                  <TableCell>{product.description}</TableCell>
-                  <TableCell>
-                    {" "}
-                    {product.category_id?.name
+      </Box>
+      <Box display="flex">
+        {productsFiltered.length ? (
+          productsFiltered.map((product) => {
+            return (
+              <Card key={product.id} className={root}>
+                <CardHeader
+                  title={product.name}
+                  subheader={
+                    product.category_id?.name
                       ? product.category_id.name
-                      : "Não informado"}{" "}
-                  </TableCell>
-                  <TableCell width={50}>
-                    <IconButton onClick={() => handleDeleteProduct(product.id)}>
-                      <Delete color="error" />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell width={50}>
-                    <IconButton
-                      onClick={() =>
-                        history.push(`/edit-product/${product.id}`)
-                      }
-                    >
-                      <Create color="primary" />
-                    </IconButton>
-                  </TableCell>
+                      : "Não informado"
+                  }
+                />
+                <Divider />
+                <CardMedia className={media} image={product.image_url} />
+                <Divider />
+                <CardContent>
+                  <Typography variant="body1">{product.description}</Typography>
 
-                  <TableCell width={50}>
-                    <IconButton
-                      onClick={() =>
-                        handleChangedColor(product.id, product.status)
-                      }
-                    >
-                      {product.status === "active".toUpperCase() ? (
-                        <FiberManualRecord style={{ color: green[500] }} />
-                      ) : (
-                        <FiberManualRecord color="secondary" />
-                      )}
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      ) : (
-        <Empty message={"Ainda Não foram Cadastrado nenhum produto"} />
-      )}
+                  <Typography variant="h4" align="right">
+                    {" "}
+                    {product.price}{" "}
+                  </Typography>
+                </CardContent>
+                <Divider />
+                <CardActions>
+                  <IconButton onClick={() => handleDeleteProduct(product.id)}>
+                    <Delete color="error" />
+                  </IconButton>
+
+                  <IconButton
+                    onClick={() => history.push(`/edit-product/${product.id}`)}
+                  >
+                    <Create color="primary" />
+                  </IconButton>
+
+                  <IconButton
+                    onClick={() =>
+                      handleChangedColor(product.id, product.status)
+                    }
+                  >
+                    {product.status === "active".toUpperCase() ? (
+                      <FiberManualRecord style={{ color: green[500] }} />
+                    ) : (
+                      <FiberManualRecord color="secondary" />
+                    )}
+                  </IconButton>
+                </CardActions>
+              </Card>
+            );
+          })
+        ) : (
+          <Empty message={"Ainda Não foram Cadastrado nenhum produto"} />
+        )}
+      </Box>
     </Layout>
   );
 };

@@ -5,4 +5,12 @@ export const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 225,
   },
+  root: {
+    width: "250px",
+    marginLeft: 16,
+  },
+  media: {
+    height: 100,
+    paddingTop: "56.25%", // 16:9
+  },
 }));
