@@ -21,7 +21,7 @@ export const Header = ({
       >
         {icon}
         <Grid>
-          <Typography variant="h4">{title}</Typography>
+          <Typography variant="h4">{title.toUpperCase()}</Typography>
           <Typography variant="body2">{description}</Typography>
         </Grid>
         {iconRight ? (
