@@ -20,6 +20,10 @@ export const EditUser = ({ history }) => {
   const handleSendDataUptade = (userData) => {
     uptadeUserDataService(userData).then(() => {
       showMessage("Deu Certo", "Todas as Alterações foram salvas");
+      localStorage.setItem(
+        "name",
+        `${userData.firstName} ${userData.lastName}`
+      );
       refresh();
     });
   };
