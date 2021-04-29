@@ -191,12 +191,6 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             <ListItem button onClick={() => history.push("/user-data")}>
               <ListItemText> Meus Dados </ListItemText>
             </ListItem>
-            <ListItem
-              button
-              onClick={() => history.push(`/edit-user-informations/${userId}`)}
-            >
-              <ListItemText> Editar Dados </ListItemText>
-            </ListItem>
           </List>
         </Collapse>
       </Drawer>
