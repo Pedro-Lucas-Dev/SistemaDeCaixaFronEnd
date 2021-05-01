@@ -1,6 +1,7 @@
-import { Button, Grid, TextField } from "@material-ui/core";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Layout } from "../../../components/Layout";
+import { Header } from "../../../components/Header";
 import { getCategoryById, updateCategoryService } from "../../../service/api";
 
 export const EditCategory = ({ history, match }) => {
@@ -20,10 +21,19 @@ export const EditCategory = ({ history, match }) => {
 
   return (
     <Layout titlePage="Edição da categoria" history={history}>
-      <Grid>
+      <Header title={"editar categoria"} />
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        direction="column"
+        spacing={1}
+      >
+        <Typography variant="h4"> Formulario </Typography>
         <TextField
           ariant="outlined"
           margin="normal"
+          variant="outlined"
           required={true}
           width={50}
           id="editCategory"
@@ -31,7 +41,7 @@ export const EditCategory = ({ history, match }) => {
           value={newDataCategory}
         />
       </Grid>
-      <Grid>
+      <Grid container justify="center" alignItems="center">
         <Button
           variant="contained"
           color="primary"
