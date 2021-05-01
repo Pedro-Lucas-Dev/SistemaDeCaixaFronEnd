@@ -14,7 +14,7 @@ import { ListProduct } from "../modules/Products/pages/ListProduct";
 import { EditProduct } from "../modules/Products/pages/EditProduct";
 import { EditUser } from "../modules/User/pages/EditUserInformations";
 import { UserData } from "../modules/User/pages/UserData";
-import { Sales } from "../modules/Sales/pages/SalesMenu";
+import { Sales } from "../modules/Sales/pages/Sales";
 
 const Routes = () => {
   return (
