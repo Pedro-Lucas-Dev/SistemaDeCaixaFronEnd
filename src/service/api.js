@@ -31,6 +31,10 @@ const loggedUser = () => {
   return requestAuthenticated.get(`${BASE_URL}/me`);
 };
 
+const getAllUsers = () => {
+  return requestAuthenticated.get(`${BASE_URL}/users`);
+};
+
 const newCategoryService = (nameOfCategory) => {
   const dataCategory = {
     name: nameOfCategory,
@@ -111,6 +115,30 @@ const uptadeUserDataService = (userData) => {
   return requestAuthenticated.patch(`${BASE_URL}/users/${userId}`, body);
 };
 
+const getAllSales = () => {
+  return requestAuthenticated.get(`${BASE_URL}/sales/`);
+};
+
+const checkout = (products) => {
+  const body = {
+    products,
+  };
+  return requestAuthenticated.post(`${BASE_URL}/sales/`, body);
+};
+
+const getQuantites = async () => {
+  const products = await getAllProducts();
+  const category = await categories();
+  const sales = await getAllSales();
+  const users = await getAllUsers();
+
+  return {
+    products: products.data.length,
+    categories: category.data.length,
+    sales: sales.data.length,
+    users: users.data.length,
+  };
+};
 export {
   signUp,
   signIn,
@@ -128,4 +156,6 @@ export {
   changeProductStatusService,
   getUserById,
   uptadeUserDataService,
+  checkout,
+  getQuantites,
 };
