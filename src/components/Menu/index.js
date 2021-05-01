@@ -32,7 +32,6 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
   const [categoriesMenu, setCategoriesMenu] = useState(false);
   const [productosMenu, setProductosMenu] = useState(false);
   const [userMenu, setUserMenu] = useState(false);
-  const userId = localStorage.getItem("id");
   const [salesMenu, setSalesMenu] = useState(false);
 
   const handleDrawerOpen = () => {
