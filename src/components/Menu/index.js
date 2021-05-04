@@ -121,10 +121,10 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
                 button
                 onClick={() => history.push("/register-category")}
               >
-                <ListItemText>Cadastrar Categoria</ListItemText>
+                <ListItemText>Cadastrar </ListItemText>
               </ListItem>
               <ListItem button onClick={() => history.push("/categories")}>
-                <ListItemText>Listar categorias</ListItemText>
+                <ListItemText>Listar </ListItemText>
               </ListItem>
             </List>
           </Collapse>
@@ -146,10 +146,10 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
           <Divider />
           <List component="div" disablePadding>
             <ListItem button onClick={() => history.push("/add-product")}>
-              <ListItemText>Cadastrar Produtos</ListItemText>
+              <ListItemText>Cadastrar </ListItemText>
             </ListItem>
             <ListItem button onClick={() => history.push("/list-products")}>
-              <ListItemText>Listar Produtos</ListItemText>
+              <ListItemText>Listar </ListItemText>
             </ListItem>
           </List>
         </Collapse>
@@ -170,8 +170,8 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
             <ListItem button onClick={() => history.push("/sales")}>
               <ListItemText> Fazer Compras </ListItemText>
             </ListItem>
-            <ListItem>
-              <ListItemText> Listar Compras </ListItemText>
+            <ListItem button onClick={() => history.push("/list-sales")}>
+              <ListItemText> Listar </ListItemText>
             </ListItem>
           </List>
         </Collapse>

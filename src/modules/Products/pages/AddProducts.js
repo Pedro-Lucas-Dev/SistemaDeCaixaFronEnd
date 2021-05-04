@@ -53,7 +53,7 @@ export const AddProducts = ({ history }) => {
     <Layout history={history} titlePage="Produto">
       <Header
         description={"Essa é a nossa tela para cadastrar um novo produto"}
-        title={"Tela de Cadastro"}
+        title={"formulário de cadastro"}
         icon={<ShoppingCart fontSize={"large"} />}
         iconRight={<Menu fontSize={"large"} />}
         onPressIconRight={() => history.push("/list-products")}

@@ -27,7 +27,7 @@ export const RegisterCategory = ({ history }) => {
   return (
     <Layout history={history} titlePage="Cadastro de Categoria">
       <Header
-        title={"Bem vindo a Tela de Cadastro"}
+        title={" formulário de cadastro "}
         description={"Essa é a nossa tela de Adicionar uma nova categoria"}
         icon={<Apps fontSize={"large"} />}
         iconRight={<Menu fontSize={"large"} />}
