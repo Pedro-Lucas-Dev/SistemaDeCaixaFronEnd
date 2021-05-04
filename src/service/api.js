@@ -139,6 +139,15 @@ const getQuantites = async () => {
     users: users.data.length,
   };
 };
+const getListSales = () => {
+  return requestAuthenticated.get(`${BASE_URL}/sales/`);
+};
+
+const changeStatusSale = (id, status) => {
+  const body = { status };
+  return requestAuthenticated.patch(`${BASE_URL}/sales/${id}`, body);
+};
+
 export {
   signUp,
   signIn,
@@ -158,4 +167,6 @@ export {
   uptadeUserDataService,
   checkout,
   getQuantites,
+  getListSales,
+  changeStatusSale,
 };
