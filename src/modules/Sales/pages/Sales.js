@@ -10,6 +10,7 @@ import {
   Paper,
   TableBody,
 } from "@material-ui/core";
+
 import {
   AddShoppingCart,
   LocalGroceryStore,
@@ -17,6 +18,7 @@ import {
   RemoveShoppingCart,
   ShoppingCart,
 } from "@material-ui/icons";
+
 import React, { useEffect, useState } from "react";
 import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
@@ -103,12 +105,13 @@ export const Sales = ({ history }) => {
   return (
     <Layout history={history} titlePage={"Compras"}>
       <Header
-        title={"Bem vindo a tela de compras"}
+        title={"Carrinho de Compras"}
         description={
           "Aqui sera feita todo o processo de compra relacionado a um produto"
         }
         icon={<MonetizationOn fontSize={"large"} />}
         iconRight={<LocalGroceryStore fontSize={"large"} />}
+        onPressIconRight={() => history.push("/list-sales")}
       />
 
       <Paper variant="outlined">
@@ -169,7 +172,8 @@ export const Sales = ({ history }) => {
               ) : (
                 <Typography align="center" variant="h6">
                   {" "}
-                  Ainda não há nenhum produto no carrinho{productsInCart.length}
+                  Ainda não há nenhum produto no carrinho{" "}
+                  {productsInCart.length}
                 </Typography>
               )}
             </TableRow>
