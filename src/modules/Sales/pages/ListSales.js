@@ -6,12 +6,18 @@ import {
   TableHead,
   Paper,
   Button,
+  Box,
 } from "@material-ui/core";
-import { ShoppingBasket, AddCircle, Cancel } from "@material-ui/icons";
+import { ShoppingBasket, AddCircle } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { Header } from "../../../components/Header";
 import { Layout } from "../../../components/Layout";
-import { getListSales, changeStatusSale } from "../../../service/api";
+import { ListProductsBuy } from "../../../components/ListProductsBuy";
+import {
+  getListSales,
+  changeStatusSale,
+  deleteSaleById,
+} from "../../../service/api";
 import { showMessage } from "../../../utils/messenge";
 
 export const ListSales = ({ history }) => {
@@ -32,7 +38,7 @@ export const ListSales = ({ history }) => {
   };
   const handleChangeStatus = (id, status) => {
     changeStatusSale(id, status).then(() => {
-      showMessage("feito", "Status da Compra atualizado");
+      showMessage("feito!", "Status da Compra atualizado");
       refresh();
     });
   };
@@ -43,6 +49,13 @@ export const ListSales = ({ history }) => {
   const handleClearProductsInSale = () => {
     setIsVisible(false);
     setProductsInSale([]);
+  };
+
+  const handleDeleteSale = (id) => {
+    deleteSaleById(id).then(() => {
+      showMessage("feito!", "Compra Deletada");
+      refresh();
+    });
   };
 
   return (
@@ -107,6 +120,17 @@ export const ListSales = ({ history }) => {
                   <TableCell>
                     {" "}
                     <Button
+                      onClick={() => handleDeleteSale(sale._id)}
+                      variant="contained"
+                      color="secondary"
+                    >
+                      {" "}
+                      Deletar{" "}
+                    </Button>{" "}
+                  </TableCell>
+                  <TableCell>
+                    {" "}
+                    <Button
                       variant="contained"
                       onClick={() => handleProductInSale(sale.products)}
                     >
@@ -120,33 +144,12 @@ export const ListSales = ({ history }) => {
           </TableBody>
         </Table>
       </Paper>
+      <Box p={2} />
       {isVisible ? (
-        <>
-          <Button
-            onClick={() => handleClearProductsInSale()}
-            variant="contained"
-            color="secondary"
-          >
-            {" "}
-            <Cancel />
-          </Button>
-          <div>
-            <table>
-              <tr>
-                <td>Nome Dos Produtos </td>
-                <td>Quantidade </td>
-              </tr>
-              {productsInSale.map(({ name, quantity }) => {
-                return (
-                  <tr>
-                    <td> {name} </td>
-                    <td> {quantity} </td>
-                  </tr>
-                );
-              })}
-            </table>
-          </div>
-        </>
+        <ListProductsBuy
+          productsInSale={productsInSale}
+          handleClearProductsInSale={handleClearProductsInSale}
+        />
       ) : null}
     </Layout>
   );

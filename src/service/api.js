@@ -148,6 +148,10 @@ const changeStatusSale = (id, status) => {
   return requestAuthenticated.patch(`${BASE_URL}/sales/${id}`, body);
 };
 
+const deleteSaleById = (id) => {
+  return requestAuthenticated.delete(`${BASE_URL}/sales/${id}`);
+};
+
 export {
   signUp,
   signIn,
@@ -169,4 +173,5 @@ export {
   getQuantites,
   getListSales,
   changeStatusSale,
+  deleteSaleById,
 };
