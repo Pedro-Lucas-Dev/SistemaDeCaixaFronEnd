@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Layout } from "../../../components/Layout";
 import { Header } from "../../../components/Header";
 import { getCategoryById, updateCategoryService } from "../../../service/api";
+import { Edit, Home } from "@material-ui/icons";
 
 export const EditCategory = ({ history, match }) => {
   const [newDataCategory, setNewDataCategory] = useState("");
@@ -21,7 +22,12 @@ export const EditCategory = ({ history, match }) => {
 
   return (
     <Layout titlePage="Edição da categoria" history={history}>
-      <Header title={"editar categoria"} />
+      <Header
+        title={"editar categoria"}
+        icon={<Edit fontSize="large" />}
+        iconRight={<Home fontSize="large" />}
+        onPressIconRight={() => history.push("/main")}
+      />
       <Grid
         container
         justify="center"
@@ -49,14 +55,6 @@ export const EditCategory = ({ history, match }) => {
         >
           {" "}
           Editar{" "}
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => history.push("/categories")}
-        >
-          {" "}
-          Cancela{" "}
         </Button>
       </Grid>
     </Layout>
