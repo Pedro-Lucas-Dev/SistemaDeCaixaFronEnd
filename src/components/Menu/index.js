@@ -16,7 +16,6 @@ import {
 } from "@material-ui/core";
 import {
   Menu as MenuIcon,
-  ChevronLeft,
   ExpandLess,
   ExpandMore,
   Home,
@@ -25,6 +24,7 @@ import {
   AccountCircle,
   ShoppingBasket,
 } from "@material-ui/icons";
+import { UserDataMenu } from "../UserDataMenu";
 
 export const Menu = ({ titlePage, handleLogout, history }) => {
   const { menu, title, buttonIcon, drawer, drawerPaper } = useStyles();
@@ -89,12 +89,7 @@ export const Menu = ({ titlePage, handleLogout, history }) => {
         variant="persistent"
         classes={{ paper: drawerPaper }}
       >
-        <div>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeft />
-          </IconButton>
-          {localStorage.getItem("name")}
-        </div>
+        <UserDataMenu handleDrawerClose={handleDrawerClose} />
         <Divider />
         <List>
           <ListItem button onClick={() => history.push("/main")}>
